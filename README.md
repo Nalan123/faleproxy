@@ -9,6 +9,7 @@ A Node.js web application that fetches a URL, replaces every instance of "Yale" 
 - Replaces all instances of "Yale" with "Fale" (case-insensitive)
 - Displays the modified content in an iframe
 - Shows original URL and page title in an info bar
+- Automatically adds HTTPS protocol when users enter URLs without a protocol (e.g., "google.com" becomes "https://google.com")
 
 ## Installation
 
@@ -29,7 +30,7 @@ npm start
 ```
 
 2. Open a browser and go to `http://localhost:3001`
-3. Enter a URL in the input field (e.g., https://www.yale.edu)
+3. Enter a URL in the input field (e.g., www.yale.edu)
 4. Click "Fetch & Replace" to see the modified content
 
 ## Development
