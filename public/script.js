@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let url = urlInput.value.trim();
         
         if (!url) {
-            showError('Please enter a valid URL');
+            showError('Please enter a URL');
             return;
         }
         
@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!url.match(/^(https?:\/\/)/i)) {
             url = 'https://' + url;
             urlInput.value = url; // Update the input field value
+        }
+        
+        // Basic URL validation
+        try {
+            new URL(url); // This will throw an error if the URL is invalid
+        } catch (error) {
+            showError('Please enter a valid URL');
+            return;
         }
         
         // Show loading indicator
