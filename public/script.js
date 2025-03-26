@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Add http:// if no protocol is specified
+        // Add https:// if no protocol is specified
         if (!url.match(/^(https?:\/\/)/i)) {
-            url = 'http://' + url;
+            url = 'https://' + url;
             urlInput.value = url; // Update the input field value
         }
         
