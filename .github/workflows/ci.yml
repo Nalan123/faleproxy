@@ -30,9 +30,7 @@ jobs:
       if: always()
       with:
         name: test-results
-        path: |
-          coverage/
-          test-results/
+        path: .
         retention-days: 5
 
   deploy-preview:
