@@ -32,41 +32,35 @@ app.post('/fetch', async (req, res) => {
     // Use cheerio to parse HTML and selectively replace text content, not URLs
     const $ = cheerio.load(html);
     
-    // Function to replace text but skip URLs and attributes
-    function replaceYaleWithFale(i, el) {
-      if ($(el).children().length === 0 || $(el).text().trim() !== '') {
-        // Get the HTML content of the element
-        let content = $(el).html();
-        
-        // Only process if it's a text node
-        if (content && $(el).children().length === 0) {
-          // Replace Yale with Fale in text content only
-          content = content.replace(/Yale/g, 'Fale').replace(/yale/g, 'fale');
-          $(el).html(content);
-        }
-      }
-    }
-    
     // Process text nodes in the body
     $('body *').contents().filter(function() {
       return this.nodeType === 3; // Text nodes only
     }).each(function() {
       // Replace text content but not in URLs or attributes
       const text = $(this).text();
-      const newText = text.replace(/Yale/g, 'Fale').replace(/yale/g, 'fale');
+      
+      // Improved replacement logic to preserve case and handle whole word replacements
+      // Use regex with word boundaries to avoid replacing parts of other words
+      let newText = text.replace(/\bYale\b/g, 'Fale')
+                       .replace(/\byale\b/g, 'fale')
+                       .replace(/\bYALE\b/g, 'FALE');
+      
       if (text !== newText) {
         $(this).replaceWith(newText);
       }
     });
     
     // Process title separately
-    const title = $('title').text().replace(/Yale/g, 'Fale').replace(/yale/g, 'fale');
-    $('title').text(title);
+    const title = $('title').text();
+    const newTitle = title.replace(/\bYale\b/g, 'Fale')
+                         .replace(/\byale\b/g, 'fale')
+                         .replace(/\bYALE\b/g, 'FALE');
+    $('title').text(newTitle);
     
     return res.json({ 
       success: true, 
       content: $.html(),
-      title: title,
+      title: newTitle,
       originalUrl: url
     });
   } catch (error) {
