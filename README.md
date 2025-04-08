@@ -43,7 +43,7 @@ npm run dev
 
 ## Testing
 
-The application includes a comprehensive test suite:
+The application includes a comprehensive test suite:-
 
 - **Unit tests**: Test the Yale-to-Fale replacement logic
 - **API tests**: Test the application endpoints
